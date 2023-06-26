@@ -1,0 +1,27 @@
+.Net MVC Application using Web API.
+
+
+API for User and Vehicle
+============================
+Front Page of Web Site is --> VTS.html
+
+•	API for save, update user master and user-vehicle details.
+------------------------------------------------------------------
+		1. To show all user details and vehicle details of the user 
+		--> GetUserandVehicleDetails.html
+
+		2. To create new user with vehicle details 
+		--> PostUsersHTML.html
+
+		3. To update all user and vehicles details 
+		--> justUpdate.html
+
+•	API for list of vehicle by search (wild) criteria with pagination.
+---------------------------------------------------------------------------
+
+		1. For list of vehicle by search (wild) criteria with pagination 
+		--> SearchVehicles.html
+
+Note:
+--> I have used Entity Framework for database access and for higher-level abstraction for working with databases
+--> I have used ajax call for  faster and more dynamic web application.

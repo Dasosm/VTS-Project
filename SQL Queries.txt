@@ -1,0 +1,59 @@
+--create DB VehicleTrackingApp
+Create database VehicleTrackingApp;
+
+--create table User
+CREATE TABLE [User](
+    UserID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    MobileNumber VARCHAR(20),
+    Organization VARCHAR(255), -- Foreign Key reference to Organization table
+    Address VARCHAR(255),
+    EmailAddress VARCHAR(255),
+    Location VARCHAR(255),
+    Photopath VARCHAR(255),--For example, if the photographs are stored on a local file system, the "photopath" could be a file path such as "C:\Photos\vehicle1.jpg".
+  
+);
+
+
+
+--User_Vehicle_Details Table:
+CREATE TABLE User_Vehicle_Details (
+    VehicleNumber VARCHAR(20) PRIMARY KEY,
+    VehicleType VARCHAR(255),
+    ChassisNumber VARCHAR(255),
+    EngineNumber VARCHAR(255),
+    ManufacturingYear INT,
+    LoadCarryingCapacity INT,
+    MakeOfVehicle VARCHAR(255),
+    ModelNumber VARCHAR(255),
+    BodyType  VARCHAR(255),
+    OrganizationName VARCHAR(255), -- Organization or company that owns or operates the vehicle
+    DeviceID INT, -- Foreign Key reference to Device table
+    UserID INT, -- Foreign Key reference to User table
+    FOREIGN KEY (DeviceID) REFERENCES [Device](DeviceID),
+    FOREIGN KEY (UserID) REFERENCES [User](UserID)
+);
+
+CREATE TABLE Device (
+    DeviceID INT PRIMARY KEY,
+    DeviceName VARCHAR(255)
+    
+);
+
+-------------------------
+INSERT INTO [User] (UserID, Name, MobileNumber, Organization, Address, EmailAddress, Location, Photopath)
+VALUES (1, 'John Doe', '1234567890', 'ABC Company', '123 Main Street', 'johndoe@example.com', 'City', 'C:\Photos\john.jpg');
+
+INSERT INTO [User] (UserID, Name, MobileNumber, Organization, Address, EmailAddress, Location, Photopath)
+VALUES (2, 'Jane Smith', '9876543210', 'XYZ Corporation', '456 Park Avenue', 'janesmith@example.com', 'City', 'C:\Photos\jane.jpg');
+
+-- Add more INSERT statements for other users
+
+INSERT INTO User_Vehicle_Details (VehicleNumber, VehicleType, ChassisNumber, EngineNumber, ManufacturingYear, LoadCarryingCapacity, MakeOfVehicle, ModelNumber, BodyType, OrganizationName, DeviceID, UserID)
+VALUES ('ABC123', 'Car', '1234567890', 'ABC123456789', 2021, 1000, 'Toyota', 'Corolla', 'Sedan', 'ABC Company', 1, 1);
+
+INSERT INTO User_Vehicle_Details (VehicleNumber, VehicleType, ChassisNumber, EngineNumber, ManufacturingYear, LoadCarryingCapacity, MakeOfVehicle, ModelNumber, BodyType, OrganizationName, DeviceID, UserID)
+VALUES ('XYZ789', 'Truck', '0987654321', 'XYZ987654321', 2022, 5000, 'Ford', 'F-150', 'Pickup', 'XYZ Corporation', 2, 2);
+
+
+
