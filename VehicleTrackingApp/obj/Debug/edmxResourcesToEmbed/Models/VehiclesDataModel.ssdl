@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VehiclesAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Device">
+    <Key>
+      <PropertyRef Name="DeviceID" />
+    </Key>
+    <Property Name="DeviceID" Type="int" Nullable="false" />
+    <Property Name="DeviceName" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="User_Vehicle_Details">
+    <Key>
+      <PropertyRef Name="VehicleNumber" />
+    </Key>
+    <Property Name="VehicleNumber" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="VehicleType" Type="varchar" MaxLength="255" />
+    <Property Name="ChassisNumber" Type="varchar" MaxLength="255" />
+    <Property Name="EngineNumber" Type="varchar" MaxLength="255" />
+    <Property Name="ManufacturingYear" Type="int" />
+    <Property Name="LoadCarryingCapacity" Type="int" />
+    <Property Name="MakeOfVehicle" Type="varchar" MaxLength="255" />
+    <Property Name="ModelNumber" Type="varchar" MaxLength="255" />
+    <Property Name="BodyType" Type="varchar" MaxLength="255" />
+    <Property Name="OrganizationName" Type="varchar" MaxLength="255" />
+    <Property Name="DeviceID" Type="int" />
+    <Property Name="UserID" Type="int" />
+  </EntityType>
+  <Association Name="FK__User_Vehi__Devic__286302EC">
+    <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+    <End Role="User_Vehicle_Details" Type="Self.User_Vehicle_Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="DeviceID" />
+      </Principal>
+      <Dependent Role="User_Vehicle_Details">
+        <PropertyRef Name="DeviceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="VehiclesAppModelStoreContainer">
+    <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_Vehicle_Details" EntityType="Self.User_Vehicle_Details" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__User_Vehi__Devic__286302EC" Association="Self.FK__User_Vehi__Devic__286302EC">
+      <End Role="Device" EntitySet="Device" />
+      <End Role="User_Vehicle_Details" EntitySet="User_Vehicle_Details" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

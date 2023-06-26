@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>List of Vehicles</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .pagination {
+            margin-top: 10px;
+        }
+
+        .pagination-button {
+            margin-right: 5px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+            .pagination-button.active {
+                background-color: #333;
+            }
+
+        #searchSection {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+            #searchSection label {
+                margin-right: 10px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            #searchSection input[type="text"] {
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            #searchSection button {
+                padding: 8px 15px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+                #searchSection button:hover {
+                    background-color: #45a049;
+                }
+    </style>
+</head>
+<body>
+    <h1>List of Vehicles</h1>
+
+    <div id="searchSection">
+        <label for="txtSearchCriteria">Search:</label>
+        <input id="txtSearchCriteria" type="text" />
+        <button id="btnSearch" type="button">Search</button>
+    </div>
+
+    <table id="vehicleList">
+        <thead>
+            <tr>
+                <th>Vehicle Number</th>
+                <th>Vehicle Type</th>
+                <th>Chassis Number</th>
+                <th>Engine Number</th>
+                <th>Manufacturing Year</th>
+                <th>Load Carrying Capacity</th>
+                <th>Make of Vehicle</th>
+                <th>Model Number</th>
+                <th>Body Type</th>
+                <th>Organization Name</th>
+                <th>Device ID</th>
+                <th>User ID</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div id="pagination">
+        <!-- Pagination controls will be dynamically generated here -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            
+            function getVehicles(searchCriteria, page) {
+                
+                $.ajax({
+                    url: 'api/User_Vehicle_Details/GetVehicles',
+                    type: 'GET',
+                    data: {
+                        searchCriteria: searchCriteria,
+                        page: page
+                    },
+                    success: function (result) {
+                        // Update the vehicle list
+                        var vehicles = result.Vehicles;
+                        var vehicleListHtml = '';
+                        for (var i = 0; i < vehicles.length; i++) {
+                            var vehicle = vehicles[i];
+                            vehicleListHtml += '<tr>';
+                            vehicleListHtml += '<td>' + vehicle.VehicleNumber + '</td>';
+                            vehicleListHtml += '<td>' + vehicle.VehicleType + '</td>';
+                            vehicleListHtml += '<td>' + vehicle.ChassisNumber + '</td>';
+                            vehicleListHtml += '<td>' + vehicle.EngineNumber + '</td>';
+                            vehicleListHtml += '<td>' + vehicle.ManufacturingYear + '</td>';
+                            vehicleListHtml += '<td>' + vehicle.LoadCarryingCapacity + '</td>';
+                            vehicleListHtml += '<td>' + vehicle.MakeOfVehicle + '</td>';
+                            vehicleListHtml += '<td>' + vehicle.ModelNumber + '</td>';
+                            vehicleListHtml += '<td>' + vehicle.BodyType + '</td>';
+                            vehicleListHtml += '<td>' + vehicle.OrganizationName + '</td>';
+                            vehicleListHtml += '<td>' + vehicle.DeviceID + '</td>';
+                            vehicleListHtml += '<td>' + vehicle.UserID + '</td>';
+                            vehicleListHtml += '</tr>';
+                        }
+
+                        $('#vehicleList tbody').html(vehicleListHtml);
+
+                        // Update pagination controls
+                        var totalPages = result.TotalPages;
+                        var currentPage = result.Page;
+                        var paginationHtml = '';
+
+                        if (totalPages > 1) {
+                            for (var page = 1; page <= totalPages; page++) {
+                                paginationHtml += '<button class="pagination-button' + (page === currentPage ? ' active' : '') + '" onclick="goToPage(' + page + ')">' + page + '</button>';
+                            }
+                        }
+
+                        $('#pagination').html(paginationHtml);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+
+            // Function to handle search button click
+            $('#btnSearch').on('click', function () {
+                var searchCriteria = $('#txtSearchCriteria').val();
+                getVehicles(searchCriteria, 1); // Search from the first page
+            });
+
+            // Function to handle pagination button click
+            function goToPage(page) {
+                var searchCriteria = $('#txtSearchCriteria').val();
+                getVehicles(searchCriteria, page);
+            }
+
+            // Initial load: retrieve vehicles for the first page
+            getVehicles('', 1);
+        });
+    </script>
+</body>
+</html>

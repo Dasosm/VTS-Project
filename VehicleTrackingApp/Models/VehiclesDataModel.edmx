@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VehiclesAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="DeviceID" />
+          </Key>
+          <Property Name="DeviceID" Type="int" Nullable="false" />
+          <Property Name="DeviceName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="User_Vehicle_Details">
+          <Key>
+            <PropertyRef Name="VehicleNumber" />
+          </Key>
+          <Property Name="VehicleNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="VehicleType" Type="varchar" MaxLength="255" />
+          <Property Name="ChassisNumber" Type="varchar" MaxLength="255" />
+          <Property Name="EngineNumber" Type="varchar" MaxLength="255" />
+          <Property Name="ManufacturingYear" Type="int" />
+          <Property Name="LoadCarryingCapacity" Type="int" />
+          <Property Name="MakeOfVehicle" Type="varchar" MaxLength="255" />
+          <Property Name="ModelNumber" Type="varchar" MaxLength="255" />
+          <Property Name="BodyType" Type="varchar" MaxLength="255" />
+          <Property Name="OrganizationName" Type="varchar" MaxLength="255" />
+          <Property Name="DeviceID" Type="int" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <Association Name="FK__User_Vehi__Devic__286302EC">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="User_Vehicle_Details" Type="Self.User_Vehicle_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceID" />
+            </Principal>
+            <Dependent Role="User_Vehicle_Details">
+              <PropertyRef Name="DeviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VehiclesAppModelStoreContainer">
+          <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Vehicle_Details" EntityType="Self.User_Vehicle_Details" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__User_Vehi__Devic__286302EC" Association="Self.FK__User_Vehi__Devic__286302EC">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="User_Vehicle_Details" EntitySet="User_Vehicle_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VehiclesAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="DeviceID" />
+          </Key>
+          <Property Name="DeviceID" Type="Int32" Nullable="false" />
+          <Property Name="DeviceName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User_Vehicle_Details" Relationship="Self.FK__User_Vehi__Devic__286302EC" FromRole="Device" ToRole="User_Vehicle_Details" />
+        </EntityType>
+        <EntityType Name="User_Vehicle_Details">
+          <Key>
+            <PropertyRef Name="VehicleNumber" />
+          </Key>
+          <Property Name="VehicleNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VehicleType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ChassisNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EngineNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ManufacturingYear" Type="Int32" />
+          <Property Name="LoadCarryingCapacity" Type="Int32" />
+          <Property Name="MakeOfVehicle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ModelNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BodyType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OrganizationName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Device" Relationship="Self.FK__User_Vehi__Devic__286302EC" FromRole="User_Vehicle_Details" ToRole="Device" />
+        </EntityType>
+        <Association Name="FK__User_Vehi__Devic__286302EC">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="User_Vehicle_Details" Type="Self.User_Vehicle_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceID" />
+            </Principal>
+            <Dependent Role="User_Vehicle_Details">
+              <PropertyRef Name="DeviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VehicleTrackingAppEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Devices" EntityType="Self.Device" />
+          <EntitySet Name="User_Vehicle_Details" EntityType="Self.User_Vehicle_Details" />
+          <AssociationSet Name="FK__User_Vehi__Devic__286302EC" Association="Self.FK__User_Vehi__Devic__286302EC">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="User_Vehicle_Details" EntitySet="User_Vehicle_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VehiclesAppModelStoreContainer" CdmEntityContainer="VehicleTrackingAppEntities2">
+          <EntitySetMapping Name="Devices">
+            <EntityTypeMapping TypeName="VehiclesAppModel.Device">
+              <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Vehicle_Details">
+            <EntityTypeMapping TypeName="VehiclesAppModel.User_Vehicle_Details">
+              <MappingFragment StoreEntitySet="User_Vehicle_Details">
+                <ScalarProperty Name="VehicleNumber" ColumnName="VehicleNumber" />
+                <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
+                <ScalarProperty Name="ChassisNumber" ColumnName="ChassisNumber" />
+                <ScalarProperty Name="EngineNumber" ColumnName="EngineNumber" />
+                <ScalarProperty Name="ManufacturingYear" ColumnName="ManufacturingYear" />
+                <ScalarProperty Name="LoadCarryingCapacity" ColumnName="LoadCarryingCapacity" />
+                <ScalarProperty Name="MakeOfVehicle" ColumnName="MakeOfVehicle" />
+                <ScalarProperty Name="ModelNumber" ColumnName="ModelNumber" />
+                <ScalarProperty Name="BodyType" ColumnName="BodyType" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Create User</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnCreateUser').click(function () {
+                var combinedData = {
+                    user: {
+                        UserID: 0,
+                        Name: $('#txtName').val(),
+                        MobileNumber: $('#txtMobileNumber').val(),
+                        Organization: $('#txtOrganization').val(),
+                        Address: $('#txtAddress').val(),
+                        EmailAddress: $('#txtEmailAddress').val(),
+                        Location: $('#txtLocation').val(),
+                        Photopath: $('#txtPhotopath').val()
+                    },
+                    vehicle: {
+                        VehicleNumber: $('#txtVehicleNumber').val(),
+                        VehicleType: $('#txtVehicleType').val(),
+                        ChassisNumber: $('#txtChassisNumber').val(),
+                        EngineNumber: $('#txtEngineNumber').val(),
+                        ManufacturingYear: $('#txtManufacturingYear').val(),
+                        LoadCarryingCapacity: $('#txtLoadCarryingCapacity').val(),
+                        MakeOfVehicle: $('#txtMakeOfVehicle').val(),
+                        ModelNumber: $('#txtModelNumber').val(),
+                        BodyType: $('#txtBodyType').val(),
+                        OrganizationName: $('#txtOrganizationName').val(),
+                        DeviceID: $('#txtDeviceID').val(),
+                        UserID: 0
+                    }
+                };
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'api/Users/CreateUser',
+                    data: JSON.stringify(combinedData),
+                    contentType: 'application/json',
+                    success: function () {
+                        // Handle success response
+                        console.log('User created successfully.');
+                        alert('User details updated successfully');
+                        // Clear input fields
+                        $('input[type="text"]').val('');
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        // Handle error response
+                        console.log("ok that sir");
+                        console.log(data);
+                        console.error('Error creating user:', errorThrown);
+                        alert('Error occurred while updating user details');
+                    }
+                });
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group.inline {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        input[type="button"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            input[type="button"]:hover {
+                background-color: #45a049;
+            }
+    </style>
+</head>
+<body>
+    <h1 align="center"> Please Fill below Details for User and Vehicle</h1>
+    <h3>User Details</h3>
+
+    <div class="form-group inline">
+        <label for="txtName">Name:</label>
+        <input type="text" id="txtName" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtMobileNumber">Mobile Number:</label>
+        <input type="text" id="txtMobileNumber" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtOrganization">Organization:</label>
+        <input type="text" id="txtOrganization" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtAddress">Address:</label>
+        <input type="text" id="txtAddress" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtEmailAddress">Email Address:</label>
+        <input type="text" id="txtEmailAddress" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtLocation">Location:</label>
+        <input type="text" id="txtLocation" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtPhotopath">Photo Path:</label>
+        <input type="text" id="txtPhotopath" />
+    </div>
+    <hr>
+    <hr>
+    <h3>Vehicle Details</h3>
+    <div class="form-group inline">
+        <label for="txtVehicleNumber">Vehicle Number:</label>
+        <input type="text" id="txtVehicleNumber" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtVehicleType">Vehicle Type:</label>
+        <input type="text" id="txtVehicleType" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtChassisNumber">Chassis Number:</label>
+        <input type="text" id="txtChassisNumber" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtEngineNumber">Engine Number:</label>
+        <input type="text" id="txtEngineNumber" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtManufacturingYear">Manufacturing Year:</label>
+        <input type="text" id="txtManufacturingYear" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtLoadCarryingCapacity">Load Carrying Capacity:</label>
+        <input type="text" id="txtLoadCarryingCapacity" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtMakeOfVehicle">Make of Vehicle:</label>
+        <input type="text" id="txtMakeOfVehicle" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtModelNumber">Model Number:</label>
+        <input type="text" id="txtModelNumber" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtBodyType">Body Type:</label>
+        <input type="text" id="txtBodyType" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtOrganizationName">Organization Name:</label>
+        <input type="text" id="txtOrganizationName" />
+    </div>
+    <div class="form-group inline">
+        <label for="txtDeviceID">Device ID:</label>
+        <input type="text" id="txtDeviceID" />
+    </div>
+
+    <div>
+        <input type="button" id="btnCreateUser" value="Create User" />
+    </div>
+
+</body>
+</html>

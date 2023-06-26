@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>User and Vehicle Details</title>
+
+    <script src="Scripts/jquery-3.4.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            // AJAX request to get user and vehicle details
+            $.ajax({
+                url: 'api/Users/GetUsers',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+
+                    var parsedData = JSON.parse(data);
+                    var users = parsedData.Users;
+
+
+                    var tableBody = document.getElementById("userTableBody");
+
+                    users.forEach(function (user) {
+                        var row = document.createElement("tr");
+
+                        var userIdCell = document.createElement("td");
+                        userIdCell.textContent = user.UserID;
+                        row.appendChild(userIdCell);
+
+                        var nameCell = document.createElement("td");
+                        nameCell.textContent = user.Name;
+                        row.appendChild(nameCell);
+
+                        var mobileNumberCell = document.createElement("td");
+                        mobileNumberCell.textContent = user.MobileNumber;
+                        row.appendChild(mobileNumberCell);
+
+                        var organizationCell = document.createElement("td");
+                        organizationCell.textContent = user.Organization;
+                        row.appendChild(organizationCell);
+
+                        var addressCell = document.createElement("td");
+                        addressCell.textContent = user.Address;
+                        row.appendChild(addressCell);
+
+                        var emailAddressCell = document.createElement("td");
+                        emailAddressCell.textContent = user.EmailAddress;
+                        row.appendChild(emailAddressCell);
+
+                        var locationCell = document.createElement("td");
+                        locationCell.textContent = user.Location;
+                        row.appendChild(locationCell);
+
+                        var photopathCell = document.createElement("td");
+                        photopathCell.textContent = user.Photopath;
+                        row.appendChild(photopathCell);
+
+                        tableBody.appendChild(row);
+                    });
+                    var tableBody = document.getElementById("vehicleTableBody");
+                    var vehicles = parsedData.Vehicles;
+
+
+                    vehicles.forEach(function (vehicle) {
+                        var row = document.createElement("tr");
+
+                        var vehicleNumberCell = document.createElement("td");
+                        vehicleNumberCell.textContent = vehicle.VehicleNumber;
+                        row.appendChild(vehicleNumberCell);
+
+                        var vehicleTypeCell = document.createElement("td");
+                        vehicleTypeCell.textContent = vehicle.VehicleType;
+                        row.appendChild(vehicleTypeCell);
+
+                        var chassisNumberCell = document.createElement("td");
+                        chassisNumberCell.textContent = vehicle.ChassisNumber;
+                        row.appendChild(chassisNumberCell);
+
+                        var engineNumberCell = document.createElement("td");
+                        engineNumberCell.textContent = vehicle.EngineNumber;
+                        row.appendChild(engineNumberCell);
+
+                        var manufacturingYearCell = document.createElement("td");
+                        manufacturingYearCell.textContent = vehicle.ManufacturingYear;
+                        row.appendChild(manufacturingYearCell);
+
+                        var loadCarryingCapacityCell = document.createElement("td");
+                        loadCarryingCapacityCell.textContent = vehicle.LoadCarryingCapacity;
+                        row.appendChild(loadCarryingCapacityCell);
+
+                        var makeOfVehicleCell = document.createElement("td");
+                        makeOfVehicleCell.textContent = vehicle.MakeOfVehicle;
+                        row.appendChild(makeOfVehicleCell);
+
+                        var modelNumberCell = document.createElement("td");
+                        modelNumberCell.textContent = vehicle.ModelNumber;
+                        row.appendChild(modelNumberCell);
+
+                        var bodyTypeCell = document.createElement("td");
+                        bodyTypeCell.textContent = vehicle.BodyType;
+                        row.appendChild(bodyTypeCell);
+
+                        var organizationNameCell = document.createElement("td");
+                        organizationNameCell.textContent = vehicle.OrganizationName;
+                        row.appendChild(organizationNameCell);
+
+                        var deviceIDCell = document.createElement("td");
+                        deviceIDCell.textContent = vehicle.DeviceID;
+                        row.appendChild(deviceIDCell);
+
+                        var userIDCell = document.createElement("td");
+                        userIDCell.textContent = vehicle.UserID;
+                        row.appendChild(userIDCell);
+
+                        tableBody.appendChild(row);
+                    });
+
+                },
+                error: function () {
+                    alert('Error occurred while retrieving user and vehicle details.');
+                }
+            });
+        });
+
+    </script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>User and Vehicle Details</h1>
+    <h3 align="center">User and Vehicle Details</h3>
+    <table >
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Mobile Number</th>
+                <th>Organization</th>
+                <th>Address</th>
+                <th>Email Address</th>
+                <th>Location</th>
+                <th>Photopath</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody"></tbody>
+    </table>
+    <h3 align="center">Vehicle Details</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Vehicle Number</th>
+                <th>Vehicle Type</th>
+                <th>Chassis Number</th>
+                <th>Engine Number</th>
+                <th>Manufacturing Year</th>
+                <th>Load Carrying Capacity</th>
+                <th>Make of Vehicle</th>
+                <th>Model Number</th>
+                <th>Body Type</th>
+                <th>Organization Name</th>
+                <th>Device ID</th>
+                <th>User ID</th>
+            </tr>
+        </thead>
+        <tbody id="vehicleTableBody"></tbody>
+    </table>
+
+</body>
+</html>

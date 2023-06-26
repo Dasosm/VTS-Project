@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VehiclesAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Device">
+    <Key>
+      <PropertyRef Name="DeviceID" />
+    </Key>
+    <Property Name="DeviceID" Type="Int32" Nullable="false" />
+    <Property Name="DeviceName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="User_Vehicle_Details" Relationship="Self.FK__User_Vehi__Devic__286302EC" FromRole="Device" ToRole="User_Vehicle_Details" />
+  </EntityType>
+  <EntityType Name="User_Vehicle_Details">
+    <Key>
+      <PropertyRef Name="VehicleNumber" />
+    </Key>
+    <Property Name="VehicleNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VehicleType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ChassisNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="EngineNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ManufacturingYear" Type="Int32" />
+    <Property Name="LoadCarryingCapacity" Type="Int32" />
+    <Property Name="MakeOfVehicle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ModelNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="BodyType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="OrganizationName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DeviceID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <NavigationProperty Name="Device" Relationship="Self.FK__User_Vehi__Devic__286302EC" FromRole="User_Vehicle_Details" ToRole="Device" />
+  </EntityType>
+  <Association Name="FK__User_Vehi__Devic__286302EC">
+    <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+    <End Role="User_Vehicle_Details" Type="Self.User_Vehicle_Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="DeviceID" />
+      </Principal>
+      <Dependent Role="User_Vehicle_Details">
+        <PropertyRef Name="DeviceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="VehicleTrackingAppEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Devices" EntityType="Self.Device" />
+    <EntitySet Name="User_Vehicle_Details" EntityType="Self.User_Vehicle_Details" />
+    <AssociationSet Name="FK__User_Vehi__Devic__286302EC" Association="Self.FK__User_Vehi__Devic__286302EC">
+      <End Role="Device" EntitySet="Devices" />
+      <End Role="User_Vehicle_Details" EntitySet="User_Vehicle_Details" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

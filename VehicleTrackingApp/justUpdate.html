@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Update User Details</title>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-3.4.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnGetUserDetails').click(function () {
+                var userId = $('#txtUserId').val();
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/Users/' + userId, //parameter passed to the the function in controller
+                    dataType: 'json',
+                    success: function (data) { //the object to be passed to the ui
+                        var parsedData = JSON.parse(data);
+                        var user = parsedData.Users;
+                        var vehicle = parsedData.Vehicles;
+
+                        $('#txtUserId').val(user.UserID);
+                        $('#txtName').val(user.Name);
+                        $('#txtMobileNumber').val(user.MobileNumber);
+                        $('#txtOrganization').val(user.Organization);
+                        $('#txtAddress').val(user.Address);
+                        $('#txtEmailAddress').val(user.EmailAddress);
+                        $('#txtLocation').val(user.Location);
+                        $('#txtPhotopath').val(user.Photopath);
+
+                        $('#txtVehicleNumber').val(vehicle.VehicleNumber);
+                        $('#txtVehicleType').val(vehicle.VehicleType);
+                        $('#txtChassisNumber').val(vehicle.ChassisNumber);
+                        $('#txtEngineNumber').val(vehicle.EngineNumber);
+                        $('#txtManufacturingYear').val(vehicle.ManufacturingYear);
+                        $('#txtLoadCarryingCapacity').val(vehicle.LoadCarryingCapacity);
+                        $('#txtMakeOfVehicle').val(vehicle.MakeOfVehicle);
+                        $('#txtModelNumber').val(vehicle.ModelNumber);
+                        $('#txtBodyType').val(vehicle.BodyType);
+                        $('#txtOrganizationName').val(vehicle.OrganizationName);
+                        $('#txtDeviceID').val(vehicle.DeviceID);
+                        
+
+                    },
+                    error: function () {
+                        console.log();
+                        alert('Error occurred while retrieving user details');
+                    }
+                });
+            });
+
+            $('#btnUpdateUser').click(function () {
+                var userId = $('#txtUserId').val();
+                var combinedData =
+                {
+                     user : {
+                        UserID: parseInt(userId),
+                        Name: $('#txtName').val(),
+                        MobileNumber: $('#txtMobileNumber').val(),
+                        Organization: $('#txtOrganization').val(),
+                        Address: $('#txtAddress').val(),
+                        EmailAddress: $('#txtEmailAddress').val(),
+                        Location: $('#txtLocation').val(),
+                        Photopath: $('#txtPhotopath').val()
+                    },
+                vehicle:{
+                    
+                    VehicleNumber: $('#txtVehicleNumber').val(),
+                    VehicleType: $('#txtVehicleType').val(),
+                    ChassisNumber: $('#txtChassisNumber').val(),
+                    EngineNumber: $('#txtEngineNumber').val(),
+                    ManufacturingYear: $('#txtManufacturingYear').val(),
+                    LoadCarryingCapacity: $('#txtLoadCarryingCapacity').val(),
+                    MakeOfVehicle: $('#txtMakeOfVehicle').val(),
+                    ModelNumber: $('#txtModelNumber').val(),
+                    BodyType: $('#txtBodyType').val(),
+                    OrganizationName: $('#txtOrganizationName').val(),
+                    DeviceID: $('#txtDeviceID').val(),
+                    UserID: parseInt(userId)
+                }
+            };
+
+                $.ajax({
+                    type: 'PUT',
+                    url: 'api/Users/' + userId,
+                    contentType: 'application/json',
+                    data: JSON.stringify(combinedData),
+                    success: function () {
+                        alert('User details updated successfully');
+                        // Get all textboxes with input type "text"
+                        var textboxes = document.querySelectorAll('input[type="text"]');
+
+                        // Iterate through each textbox and clear its value
+                        textboxes.forEach(function (textbox) {
+                            textbox.value = '';
+                        });
+
+                    },
+                    error: function () {
+                        console.log(userId);
+                        console.log(JSON.stringify(user));
+                        alert('Error occurred while updating user details');
+                    }
+                });
+            });
+        });
+    </script>
+    <style>
+        .form-container {
+            width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input.form-control {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+    </style>
+</head>
+<body>
+    <h1>User and Vehicle Details</h1>
+    <h3 align="center">User Details</h3>
+    <div class="form-container">
+        <div class="form-group">
+            <label for="txtUserId">User ID:</label>
+            <input id="txtUserId" type="text" class="form-control" />
+            <button id="btnGetUserDetails" type="button">Get User Details</button>
+        </div>
+        <div class="form-group">
+            <label for="txtName">Name:</label>
+            <input id="txtName" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtMobileNumber">Mobile Number:</label>
+            <input id="txtMobileNumber" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtOrganization">Organization:</label>
+            <input id="txtOrganization" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtAddress">Address:</label>
+            <input id="txtAddress" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtEmailAddress">Email Address:</label>
+            <input id="txtEmailAddress" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtLocation">Location:</label>
+            <input id="txtLocation" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtPhotopath">Photopath:</label>
+            <input id="txtPhotopath" type="text" class="form-control" />
+        </div>
+        <hr />
+        <h3 align="center">Vehicle Details</h3>
+        <div class="form-group">
+            <label for="txtVehicleNumber">Vehicle Number:</label>
+            <input id="txtVehicleNumber" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtVehicleType">Vehicle Type:</label>
+            <input id="txtVehicleType" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtChassisNumber">Chassis Number:</label>
+            <input id="txtChassisNumber" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtEngineNumber">Engine Number:</label>
+            <input id="txtEngineNumber" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtManufacturingYear">Manufacturing Year:</label>
+            <input id="txtManufacturingYear" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtLoadCarryingCapacity">Load Carrying Capacity:</label>
+            <input id="txtLoadCarryingCapacity" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtMakeOfVehicle">Make of Vehicle:</label>
+            <input id="txtMakeOfVehicle" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtModelNumber">Model Number:</label>
+            <input id="txtModelNumber" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtBodyType">Body Type:</label>
+            <input id="txtBodyType" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtOrganizationName">Organization Name:</label>
+            <input id="txtOrganizationName" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="txtDeviceID">Device ID:</label>
+            <input id="txtDeviceID" type="text" class="form-control" />
+        </div>
+        <button id="btnUpdateUser" type="button">Update User</button>
+    </div>
+
+
+
+</body>
+</html>
